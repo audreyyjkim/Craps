@@ -1,6 +1,6 @@
 
 /**
- * Write a description of class Craps here.
+ * The Craps program replicates a craps grame.
  *
  * @author Audrey Kim 
  * @version 2020-01-14
@@ -29,31 +29,45 @@ public class Craps
         }
     }
     
+    public static void printResults(int die1, int die2)
+    {
+        System.out.println("Die1 = " + die1);
+        System.out.println("Die2 = " + die2);
+        System.out.println("Sum = " + (die1 + die2));
+    }
+    
+    public static Die makeDie()
+    {
+        Die die1 = new Die();
+        die1.roll();
+        return die1;
+    }
+    
     public static void main(String[] args)
     {
         Scanner in = new Scanner(System.in);
         System.out.println("Welcome to the game of Craps!");
-        System.out.println("Would you like to play (Y/n)?: ");
+        System.out.print("Would you like to play (Y/n)?: ");
         String answer = in.nextLine();
         if (answer.equalsIgnoreCase("y") || answer.length() == 0)
         {
             getDirections();
         }
+        else
+        {
+            System.out.println("Okay, see you next time!");
+        }
         while (answer.equalsIgnoreCase("y") || answer.length() == 0)
         {
-            System.out.println("Press <Enter> to roll your dice");
+            System.out.print("Press <Enter> to roll your dice");
             String roll = in.nextLine();
             int point = 0;
             if (roll.length() == 0)
             {
-                Die die1 = new Die();
-                die1.roll();
-                Die die2 = new Die();
-                die2.roll();
-                System.out.println("Die1 = " + die1.getRoll());
-                System.out.println("Die2 = " + die2.getRoll());
+                Die die1 = makeDie();
+                Die die2 = makeDie();
                 point += (die1.getRoll() + die2.getRoll());
-                System.out.println("Sum = " + point);
+                printResults(die1.getRoll(), die2.getRoll());
             }
             if (point == 7 || point == 11)
             {   
@@ -67,29 +81,23 @@ public class Craps
             }
             else
             {
-                System.out.println("Press <Enter> to roll your dice");
+                System.out.print("Press <Enter> to roll your dice");
                 roll = in.nextLine();
                 if (roll.length() == 0)
                 {
-                    Die die3 = new Die();
-                    die3.roll();
-                    Die die4 = new Die();
-                    die4.roll();
-                    System.out.println("Die1 = " + die3.getRoll());
-                    System.out.println("Die2 = " + die4.getRoll());
-                    System.out.println("Sum = " + (die3.getRoll() + die4.getRoll()));
+                    Die die3 = makeDie();
+                    Die die4 = makeDie();
+                    printResults(die3.getRoll(), die4.getRoll());
                     while (!(die3.getRoll() + die4.getRoll() == point || 
                              die3.getRoll() + die4.getRoll() == 7))     
                     {
-                        System.out.println("Press <Enter> to roll your dice");
+                        System.out.print("Press <Enter> to roll your dice");
                         roll = in.nextLine();
                         if (roll.length() == 0)
                         {
                             die3.roll();
                             die4.roll();
-                            System.out.println("Die1 = " + die3.getRoll());
-                            System.out.println("Die2 = " + die4.getRoll());
-                            System.out.println("Sum = " + (die3.getRoll() + die4.getRoll()));
+                            printResults(die3.getRoll(), die4.getRoll());
                         }
                     }
                 
@@ -106,5 +114,6 @@ public class Craps
                 }
             }
         }
+        
     }
 }
